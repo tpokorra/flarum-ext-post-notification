@@ -16,7 +16,8 @@ This currently happens via SQL:
 
 ```sql
 insert into fl_settings values ('PostNotification.forumname', 'My Forum');
-insert into fl_settings values ('PostNotification.recipients', 'me@example.com, you@example.com');
+insert into fl_settings values ('PostNotification.recipients.to', 'forum@example.com');
+insert into fl_settings values ('PostNotification.recipients.bcc', 'me@example.com, you@example.com');
 insert into fl_settings values ('PostNotification.new_post', 'A new message has been posted:');
 insert into fl_settings values ('PostNotification.revised_post', 'A message has been revised:');
 ```
