@@ -27,5 +27,10 @@
                 "color": "#5f4bb6"
             }
         }
+    },
+    "autoload": {
+        "psr-4": {
+            "tpokorra\\PostNotification\\": "src/"
+        }
     }
 }

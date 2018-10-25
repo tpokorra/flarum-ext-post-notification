@@ -1,37 +1,17 @@
 <?php
+/*
+ * This file is part of the flarum extension flarum-ext-post-notification.
+ *
+ * (c) Timotheus Pokorra <timotheus.pokorra@solidcharity.com>
+ *
+ * For the full copyright and license information, please view the license.md
+ * file that was distributed with this source code.
+ */
 
-namespace Flagrow\PostNotification;
+namespace tpokorra\PostNotification;
 
-use Flarum\Core;
-use Flarum\Core\Repository\UserRepository;
-use Flarum\Settings\SettingsRepositoryInterface;
-use Flarum\Event\PostWasPosted;
-use Flarum\Event\PostWasRevised;
 use Illuminate\Contracts\Events\Dispatcher;
-use Illuminate\Contracts\Mail\Mailer;
-use Illuminate\Mail\Message;
 
-function SendNotification($post, Mailer $mailer, bool $new_post) {
-	if ($new_post) {
-		$first_sentence = "There's a new post on my forum"; // TODO in config file
-	} else {
-		$first_sentence = "A post has been edited on my forum"; // TODO in config file
-	}		
-	$content =  $first_sentence."\n\n\n" .
-                $post->content;
-	$mailer->raw($content, function (Message $message) use ($post) {
-		$recipient = "me@example.com"; // TODO in config file
-		$message->to($recipient);
-		$forum_name = "My-Forum"; // TODO in config file
-		$message->subject("[$forum_name] " . $post->discussion->title);
-	});
-}	
-
-return function(Dispatcher $events, Mailer $mailer) {
-	$events->listen(PostWasPosted::class, function (PostWasPosted $event) use ($mailer) {
-		SendNotification($event->post, $mailer, true);
-	});
-	$events->listen(PostWasRevised::class, function (PostWasRevised $event) use ($mailer) {
-		SendNotification($event->post, $mailer, false);
-	});
+return function(Dispatcher $events) {
+	$events->subscribe(Listeners\PostNotification::class);
 };
