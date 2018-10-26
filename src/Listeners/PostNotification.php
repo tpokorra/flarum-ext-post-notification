@@ -54,12 +54,13 @@ class PostNotification
 
     private function SendNotification($post, bool $new_post) {
         if ($new_post) {
-            //$first_sentence = "There's a new post on my forum";
+            //$first_sentence = "There's a new post by %s on my forum";
             $first_sentence = $this->settings->get('PostNotification.new_post');
         } else {
-            //$first_sentence = "A post has been edited on my forum";
+            //$first_sentence = "A post has been edited by %s on my forum";
             $first_sentence = $this->settings->get('PostNotification.revised_post');
         }
+        $first_sentence = sprintf($first_sentence, $post->user()->getResults()->username);
         $content =  $first_sentence."\n\n\n" .
                 $post->content;
         $this->mailer->raw($content, function (Message $message) use ($post) {
