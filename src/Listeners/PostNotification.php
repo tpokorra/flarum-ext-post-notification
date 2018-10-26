@@ -53,6 +53,12 @@ class PostNotification
     }
 
     private function SendNotification($post, bool $new_post) {
+
+        if ($post->is_private) {
+            # don't notify private posts here
+            return;
+        }
+
         if ($new_post) {
             //$first_sentence = "There's a new post by %s on my forum";
             $first_sentence = $this->settings->get('PostNotification.new_post');
