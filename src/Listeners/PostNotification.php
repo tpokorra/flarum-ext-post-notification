@@ -71,9 +71,9 @@ class PostNotification
                 $post->content;
         $this->mailer->raw($content, function (Message $message) use ($post) {
                 // $recipient = 'me@example.com, you@example.com';
-                $recipients = explode(',', $this->settings->get('PostNotification.recipients.to'));
+                $recipients = explode(',', str_replace(' ', '', $this->settings->get('PostNotification.recipients.to')));
                 $message->to($recipients);
-                $recipients = explode(',', $this->settings->get('PostNotification.recipients.bcc'));
+                $recipients = explode(',', str_replace(' ', '', $this->settings->get('PostNotification.recipients.bcc')));
                 $message->bcc($recipients);
                 $forum_name = $this->settings->get('PostNotification.forumname');
                 $message->subject("[$forum_name] " . $post->discussion->title);
