@@ -10,6 +10,8 @@ Install manually:
 composer require tpokorra/flarum-ext-post-notification
 ```
 
+Don't forget to activate the extension in the admin panel of your Flarum!
+
 ### configuration
 
 This currently happens via SQL:
