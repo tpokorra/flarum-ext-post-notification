@@ -15,6 +15,8 @@ use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\View\Factory;
 
 return [
+    (new Extend\Frontend('admin'))
+            ->js(__DIR__.'/js/dist/admin.js'),
     function(Dispatcher $events, Factory $view) {
         $events->subscribe(Listeners\PostNotification::class);
     }
