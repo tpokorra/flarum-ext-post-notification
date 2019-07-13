@@ -10,8 +10,12 @@
 
 namespace tpokorra\PostNotification;
 
+use Flarum\Extend;
 use Illuminate\Contracts\Events\Dispatcher;
+use Illuminate\Contracts\View\Factory;
 
-return function(Dispatcher $events) {
-	$events->subscribe(Listeners\PostNotification::class);
-};
+return [
+    function(Dispatcher $events, Factory $view) {
+        $events->subscribe(Listeners\PostNotification::class);
+    }
+];

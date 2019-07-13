@@ -11,8 +11,8 @@
 namespace tpokorra\PostNotification\Listeners;
 
 use Flarum\Settings\SettingsRepositoryInterface;
-use Flarum\Event\PostWasPosted;
-use Flarum\Event\PostWasRevised;
+use Flarum\Post\Event\Posted;
+use Flarum\Post\Event\Revised;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Mail\Message;
@@ -40,15 +40,15 @@ class PostNotification
      */
     public function subscribe(Dispatcher $events)
     {
-        $events->listen(PostWasPosted::class, [$this, 'PostWasPosted']);
-        $events->listen(PostWasRevised::class, [$this, 'PostWasRevised']);
+        $events->listen(Posted::class, [$this, 'PostWasPosted']);
+        $events->listen(Revised::class, [$this, 'PostWasRevised']);
     }
 
-    public function PostWasPosted(PostWasPosted $event) {
+    public function PostWasPosted(Posted $event) {
         $this->SendNotification($event->post, true);
     }
 
-    public function PostWasRevised(PostWasRevised $event) {
+    public function PostWasRevised(Revised $event) {
         $this->SendNotification($event->post, false);
     }
 
