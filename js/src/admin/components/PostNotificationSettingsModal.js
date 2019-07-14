@@ -12,11 +12,6 @@ export default class PostNotificationSettingsModal extends SettingsModal {
     form() {
         return [
             <div className="Form-group">
-                <label>{app.translator.trans('tpokorra-post-notification.admin.settings.forumname')}</label>
-                <input required className="FormControl" type="text" bidi={this.setting('PostNotification.forumname', 'My example Forum')} />
-            </div>,
-
-            <div className="Form-group">
                 <label>{app.translator.trans('tpokorra-post-notification.admin.settings.recipients.to')}</label>
                 <input required className="FormControl" type="text" length="50" bidi={this.setting('PostNotification.recipients.to', 'forum-updates@example.org')} />
             </div>,

@@ -75,7 +75,7 @@ class PostNotification
                 $message->to($recipients);
                 $recipients = explode(',', str_replace(' ', '', $this->settings->get('PostNotification.recipients.bcc')));
                 $message->bcc($recipients);
-                $forum_name = $this->settings->get('PostNotification.forumname');
+                $forum_name = $this->settings->get('forum_title');
                 $message->subject("[$forum_name] " . $post->discussion->title);
         });
     }

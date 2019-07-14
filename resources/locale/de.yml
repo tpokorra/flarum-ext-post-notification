@@ -3,7 +3,6 @@ tpokorra-post-notification:
     settings:
       title: Konfiguration der E-Mail Benachrichtigungen
 
-      forumname: Name des Forums (für den Betreff der Benachrichtigungs-E-Mail)
       recipients.to: Der sichtbare Empfänger der E-Mail (ggfs. mehrere Empfänger mit Komma getrennt)
       recipients.bcc: Die unsichtbaren Empfänger der E-Mail (BCC, ggfs. mehrere Empfänger mit Komma getrennt)
       new_post: Text um einen neuen Beitrag zu beschreiben
