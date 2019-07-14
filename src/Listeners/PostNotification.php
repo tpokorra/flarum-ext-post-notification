@@ -16,6 +16,7 @@ use Flarum\Post\Event\Revised;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Mail\Message;
+use Illuminate\Support\Arr;
 
 class PostNotification
 {
@@ -26,6 +27,8 @@ class PostNotification
 
     protected $mailer;
 
+    protected static $flarumConfig;
+
     /**
      * @param SettingsRepositoryInterface $settings
      */
@@ -33,6 +36,7 @@ class PostNotification
     {
         $this->settings = $settings;
         $this->mailer = $mailer;
+        static::$flarumConfig = app('flarum.config');
     }
 
     /**
@@ -68,6 +72,9 @@ class PostNotification
         }
         $first_sentence = sprintf($first_sentence, $post->user()->getResults()->username);
         $content =  $first_sentence."\n\n\n" .
+		Arr::get(static::$flarumConfig, 'url').
+		'/d/'.$post->discussion->id.'-'.$post->discussion->slug.'/'.$post->number.
+		"\n\n".
                 $post->content;
         $this->mailer->raw($content, function (Message $message) use ($post) {
                 // $recipient = 'me@example.com, you@example.com';
