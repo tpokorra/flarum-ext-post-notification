@@ -3,7 +3,9 @@ tpokorra-post-notification:
     settings:
       title: Konfiguration der E-Mail Benachrichtigungen
 
-      recipients.to: Der sichtbare Empfänger der E-Mail (ggfs. mehrere Empfänger mit Komma getrennt)
-      recipients.bcc: Die unsichtbaren Empfänger der E-Mail (BCC, ggfs. mehrere Empfänger mit Komma getrennt)
+      recipients.new_post.to: Der sichtbare Empfänger der E-Mail (ggfs. mehrere Empfänger mit Komma getrennt) für neue Beiträge
+      recipients.revised_post.to: Der sichtbare Empfänger der E-Mail (ggfs. mehrere Empfänger mit Komma getrennt) für bearbeitete Beiträge
+      recipients.new_post.bcc: Die unsichtbaren Empfänger der E-Mail (BCC, ggfs. mehrere Empfänger mit Komma getrennt) für neue Beiträge
+      recipients.revised_post.bcc: Die unsichtbaren Empfänger der E-Mail (BCC, ggfs. mehrere Empfänger mit Komma getrennt) für bearbeitete Beiträge
       new_post: Text um einen neuen Beitrag zu beschreiben
       revised_post: Text um eine Beiträgsänderung zu beschreiben

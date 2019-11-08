@@ -66,24 +66,35 @@ class PostNotification
         if ($new_post) {
             //$first_sentence = "There's a new post by %s on my forum";
             $first_sentence = $this->settings->get('PostNotification.new_post');
+            $recipients_to = $this->settings->get('PostNotification.recipients.new_post.to');
+            $recipients_bcc = $this->settings->get('PostNotification.recipients.new_post.bcc');
         } else {
             //$first_sentence = "A post has been edited by %s on my forum";
             $first_sentence = $this->settings->get('PostNotification.revised_post');
+            $recipients_to = $this->settings->get('PostNotification.recipients.revised_post.to');
+            $recipients_bcc = $this->settings->get('PostNotification.recipients.revised_post.bcc');
+        }
+        if (empty($recipients_to) && empty($recipients_bcc)) {
+            // compatibility with older version (0.2.2, 2019-11)
+            $recipients_to = $this->settings->get('PostNotification.recipients.to');
+            $recipients_bcc = $this->settings->get('PostNotification.recipients.bcc');
         }
         $first_sentence = sprintf($first_sentence, $post->user()->getResults()->username);
         $content =  $first_sentence."\n\n\n" .
-		Arr::get(static::$flarumConfig, 'url').
-		'/d/'.$post->discussion->id.'-'.$post->discussion->slug.'/'.$post->number.
-		"\n\n".
+                Arr::get(static::$flarumConfig, 'url').
+                '/d/'.$post->discussion->id.'-'.$post->discussion->slug.'/'.$post->number.
+                "\n\n".
                 $post->content;
-        $this->mailer->raw($content, function (Message $message) use ($post) {
-                // $recipient = 'me@example.com, you@example.com';
-                $recipients = explode(',', str_replace(' ', '', $this->settings->get('PostNotification.recipients.to')));
+        if (!empty($recipients_to)) {
+            $this->mailer->raw($content, function (Message $message) use ($post) {
+                // $recipients_to = 'me@example.com, you@example.com';
+                $recipients = explode(',', str_replace(' ', '', $recipients_to));
                 $message->to($recipients);
-                $recipients = explode(',', str_replace(' ', '', $this->settings->get('PostNotification.recipients.bcc')));
+                $recipients = explode(',', str_replace(' ', '', $recipients_bcc));
                 $message->bcc($recipients);
                 $forum_name = $this->settings->get('forum_title');
                 $message->subject("[$forum_name] " . $post->discussion->title);
-        });
+            });
+        }
     }
 }
