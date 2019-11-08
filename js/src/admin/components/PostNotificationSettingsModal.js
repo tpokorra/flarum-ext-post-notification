@@ -13,22 +13,22 @@ export default class PostNotificationSettingsModal extends SettingsModal {
         return [
             <div className="Form-group">
                 <label>{app.translator.trans('tpokorra-post-notification.admin.settings.recipients.new_post.to')}</label>
-                <input required className="FormControl" type="text" length="50" bidi={this.setting('PostNotification.recipients.new_post.to', this.setting('PostNotification.recipients.to', 'forum-updates@example.org'))} />
+                <input required className="FormControl" type="text" length="50" bidi={this.setting('PostNotification.recipients.new_post.to', 'forum-updates@example.org')} />
             </div>,
 
             <div className="Form-group">
                 <label>{app.translator.trans('tpokorra-post-notification.admin.settings.recipients.new_post.bcc')}</label>
-                <input required className="FormControl" type="text" length="100" bidi={this.setting('PostNotification.recipients.new_post.bcc', this.setting('PostNotification.recipients.bcc', 'person1@example.org, person2@example.org'))} />
+                <input required className="FormControl" type="text" length="100" bidi={this.setting('PostNotification.recipients.new_post.bcc', 'person1@example.org, person2@example.org')} />
             </div>,
 
             <div className="Form-group">
                 <label>{app.translator.trans('tpokorra-post-notification.admin.settings.recipients.revised_post.to')}</label>
-                <input required className="FormControl" type="text" length="50" bidi={this.setting('PostNotification.recipients.revised_post.to', this.setting('PostNotification.recipients.to', 'forum-updates@example.org'))} />
+                <input required className="FormControl" type="text" length="50" bidi={this.setting('PostNotification.recipients.revised_post.to', 'forum-updates@example.org')} />
             </div>,
 
             <div className="Form-group">
                 <label>{app.translator.trans('tpokorra-post-notification.admin.settings.recipients.revised_post.bcc')}</label>
-                <input required className="FormControl" type="text" length="100" bidi={this.setting('PostNotification.recipients.revised_post.bcc', this.setting('PostNotification.recipients.bcc', 'person1@example.org, person2@example.org'))} />
+                <input required className="FormControl" type="text" length="100" bidi={this.setting('PostNotification.recipients.revised_post.bcc', 'person1@example.org, person2@example.org')} />
             </div>,
 
             <div className="Form-group">

@@ -37,6 +37,22 @@ class PostNotification
         $this->settings = $settings;
         $this->mailer = $mailer;
         static::$flarumConfig = app('flarum.config');
+        $this->update_0_3_0();
+    }
+
+    // compatibility with older version (0.2.2, 2019-11)
+    private function update_0_3_0() {
+        $recipients_new_to = $this->settings->get('PostNotification.recipients.new_post.to');
+        $recipients_new_bcc = $this->settings->get('PostNotification.recipients.new_post.bcc');
+        $recipients_revised_to = $this->settings->get('PostNotification.recipients.revised_post.to');
+        $recipients_revised_bcc = $this->settings->get('PostNotification.recipients.revised_post.bcc');
+
+        if (empty($recipients_new_to) && empty($recipients_new_bcc) && empty($recipients_revised_bcc) && empty($recipients_revised_bcc)) {
+            $this->settings->set('PostNotification.recipients.new_post.to', $this->settings->get('PostNotification.recipients.to'));
+            $this->settings->set('PostNotification.recipients.new_post.bcc', $this->settings->get('PostNotification.recipients.bcc'));
+            $this->settings->set('PostNotification.recipients.revised_post.to', $this->settings->get('PostNotification.recipients.to'));
+            $this->settings->set('PostNotification.recipients.revised_post.bcc', $this->settings->get('PostNotification.recipients.bcc'));
+        }
     }
 
     /**
@@ -73,11 +89,6 @@ class PostNotification
             $first_sentence = $this->settings->get('PostNotification.revised_post');
             $recipients_to = $this->settings->get('PostNotification.recipients.revised_post.to');
             $recipients_bcc = $this->settings->get('PostNotification.recipients.revised_post.bcc');
-        }
-        if (empty($recipients_to) && empty($recipients_bcc)) {
-            // compatibility with older version (0.2.2, 2019-11)
-            $recipients_to = $this->settings->get('PostNotification.recipients.to');
-            $recipients_bcc = $this->settings->get('PostNotification.recipients.bcc');
         }
         $first_sentence = sprintf($first_sentence, $post->user()->getResults()->username);
         $content =  $first_sentence."\n\n\n" .
