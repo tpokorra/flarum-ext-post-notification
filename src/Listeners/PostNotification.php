@@ -97,12 +97,14 @@ class PostNotification
                 "\n\n".
                 $post->content;
         if (!empty($recipients_to)) {
-            $this->mailer->raw($content, function (Message $message) use ($post) {
+            $this->mailer->raw($content, function (Message $message) use ($post, $recipients_to, $recipients_bcc) {
                 // $recipients_to = 'me@example.com, you@example.com';
                 $recipients = explode(',', str_replace(' ', '', $recipients_to));
                 $message->to($recipients);
                 $recipients = explode(',', str_replace(' ', '', $recipients_bcc));
-                $message->bcc($recipients);
+                if (!empty($recipients)) {
+                    $message->bcc($recipients);
+                }
                 $forum_name = $this->settings->get('forum_title');
                 $message->subject("[$forum_name] " . $post->discussion->title);
             });
