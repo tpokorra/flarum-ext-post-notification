@@ -12,6 +12,16 @@ export default class PostNotificationSettingsModal extends SettingsModal {
     form() {
         return [
             <div className="Form-group">
+                <label>{app.translator.trans('tpokorra-post-notification.admin.settings.recipients.new_discussion.to')}</label>
+                <input required className="FormControl" type="text" length="50" bidi={this.setting('PostNotification.recipients.new_discussion.to', 'forum-updates@example.org')} />
+            </div>,
+
+            <div className="Form-group">
+                <label>{app.translator.trans('tpokorra-post-notification.admin.settings.recipients.new_discussion.bcc')}</label>
+                <input required className="FormControl" type="text" length="100" bidi={this.setting('PostNotification.recipients.new_discussion.bcc', 'person1@example.org, person2@example.org')} />
+            </div>,
+
+            <div className="Form-group">
                 <label>{app.translator.trans('tpokorra-post-notification.admin.settings.recipients.new_post.to')}</label>
                 <input required className="FormControl" type="text" length="50" bidi={this.setting('PostNotification.recipients.new_post.to', 'forum-updates@example.org')} />
             </div>,
@@ -29,6 +39,11 @@ export default class PostNotificationSettingsModal extends SettingsModal {
             <div className="Form-group">
                 <label>{app.translator.trans('tpokorra-post-notification.admin.settings.recipients.revised_post.bcc')}</label>
                 <input required className="FormControl" type="text" length="100" bidi={this.setting('PostNotification.recipients.revised_post.bcc', 'person1@example.org, person2@example.org')} />
+            </div>,
+
+            <div className="Form-group">
+                <label>{app.translator.trans('tpokorra-post-notification.admin.settings.new_discussion')}</label>
+                <input required className="FormControl" type="text" length="100" bidi={this.setting('PostNotification.new_discussion', 'A new discussion has been started by %s:')} />
             </div>,
 
             <div className="Form-group">

@@ -53,6 +53,13 @@ class PostNotification
             $this->settings->set('PostNotification.recipients.revised_post.to', $this->settings->get('PostNotification.recipients.to'));
             $this->settings->set('PostNotification.recipients.revised_post.bcc', $this->settings->get('PostNotification.recipients.bcc'));
         }
+
+        $recipients_new_to = $this->settings->get('PostNotification.recipients.new_discussion.to');
+        $recipients_new_bcc = $this->settings->get('PostNotification.recipients.new_discussion.bcc');
+        if (empty($recipients_new_to) && empty($recipients_new_bcc)) {
+            $this->settings->set('PostNotification.recipients.new_discussion.to', $this->settings->get('PostNotification.recipients.to'));
+            $this->settings->set('PostNotification.recipients.new_discussion.bcc', $this->settings->get('PostNotification.recipients.bcc'));
+        }
     }
 
     /**
@@ -79,7 +86,15 @@ class PostNotification
             return;
         }
 
-        if ($new_post) {
+        $new_discussion = ($post->number == 1 && $new_post);
+
+        if ($new_discussion) {
+            //$first_sentence = "There's a new discussion by %s on my forum";
+            $first_sentence = $this->settings->get('PostNotification.new_discussion', 'A new discussion has been started by %s:');
+            $recipients_to = $this->settings->get('PostNotification.recipients.new_discussion.to');
+            $recipients_bcc = $this->settings->get('PostNotification.recipients.new_discussion.bcc');
+        }
+        else if ($new_post) {
             //$first_sentence = "There's a new post by %s on my forum";
             $first_sentence = $this->settings->get('PostNotification.new_post');
             $recipients_to = $this->settings->get('PostNotification.recipients.new_post.to');
