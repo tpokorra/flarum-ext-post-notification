@@ -12,6 +12,11 @@ export default class PostNotificationSettingsModal extends SettingsModal {
     form() {
         return [
             <div className="Form-group">
+                <label>{app.translator.trans('tpokorra-post-notification.admin.settings.recipients.post_approval.to')}</label>
+                <input required className="FormControl" type="text" length="50" bidi={this.setting('PostNotification.recipients.post_approval.to', 'moderator1@example.org, moderator2@example.org')} />
+            </div>,
+
+            <div className="Form-group">
                 <label>{app.translator.trans('tpokorra-post-notification.admin.settings.recipients.new_discussion.to')}</label>
                 <input required className="FormControl" type="text" length="50" bidi={this.setting('PostNotification.recipients.new_discussion.to', 'forum-updates@example.org')} />
             </div>,
@@ -39,6 +44,11 @@ export default class PostNotificationSettingsModal extends SettingsModal {
             <div className="Form-group">
                 <label>{app.translator.trans('tpokorra-post-notification.admin.settings.recipients.revised_post.bcc')}</label>
                 <input required className="FormControl" type="text" length="100" bidi={this.setting('PostNotification.recipients.revised_post.bcc', 'person1@example.org, person2@example.org')} />
+            </div>,
+
+            <div className="Form-group">
+                <label>{app.translator.trans('tpokorra-post-notification.admin.settings.post_approval')}</label>
+                <input required className="FormControl" type="text" length="100" bidi={this.setting('PostNotification.post_approval', 'A new post by %s needs to be approved:')} />
             </div>,
 
             <div className="Form-group">

@@ -13,6 +13,8 @@ namespace tpokorra\PostNotification\Listeners;
 use Flarum\Settings\SettingsRepositoryInterface;
 use Flarum\Post\Event\Posted;
 use Flarum\Post\Event\Revised;
+use Flarum\Approval\Event\PostWasApproved;
+use Flarum\Post\Event\Saving;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Mail\Message;
@@ -69,6 +71,8 @@ class PostNotification
     {
         $events->listen(Posted::class, [$this, 'PostWasPosted']);
         $events->listen(Revised::class, [$this, 'PostWasRevised']);
+        $events->listen(PostWasApproved::class, [$this, 'PostWasApproved']);
+        $events->listen(Saving::class, [$this, 'PostNeedsApproval']);
     }
 
     public function PostWasPosted(Posted $event) {
@@ -79,7 +83,17 @@ class PostNotification
         $this->SendNotification($event->post, false);
     }
 
-    private function SendNotification($post, bool $new_post) {
+    public function PostWasApproved(PostWasApproved $event) {
+        $this->SendNotification($event->post, true);
+    }
+
+    public function PostNeedsApproval(Saving $event) {
+        if ($event->post->is_approved == false) {
+            $this->SendNotification($event->post, true, true);
+        }
+    }
+
+    private function SendNotification($post, bool $new_post, bool $needs_approval = false) {
 
         if ($post->is_private) {
             # don't notify private posts here
@@ -88,7 +102,12 @@ class PostNotification
 
         $new_discussion = ($post->number == 1 && $new_post);
 
-        if ($new_discussion) {
+        if ($needs_approval) {
+            $first_sentence = $this->settings->get('PostNotification.post_approval', 'A new post by %s needs to be approved:');
+            $recipients_to = $this->settings->get('PostNotification.recipients.post_approval.to');
+            $recipients_bcc = "";
+        }
+        else if ($new_discussion) {
             //$first_sentence = "There's a new discussion by %s on my forum";
             $first_sentence = $this->settings->get('PostNotification.new_discussion', 'A new discussion has been started by %s:');
             $recipients_to = $this->settings->get('PostNotification.recipients.new_discussion.to');
