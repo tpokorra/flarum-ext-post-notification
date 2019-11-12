@@ -13,37 +13,37 @@ export default class PostNotificationSettingsModal extends SettingsModal {
         return [
             <div className="Form-group">
                 <label>{app.translator.trans('tpokorra-post-notification.admin.settings.recipients.post_approval.to')}</label>
-                <input required className="FormControl" type="text" length="50" bidi={this.setting('PostNotification.recipients.post_approval.to', 'moderator1@example.org, moderator2@example.org')} />
+                <input className="FormControl" type="text" length="50" bidi={this.setting('PostNotification.recipients.post_approval.to')} />
             </div>,
 
             <div className="Form-group">
                 <label>{app.translator.trans('tpokorra-post-notification.admin.settings.recipients.new_discussion.to')}</label>
-                <input required className="FormControl" type="text" length="50" bidi={this.setting('PostNotification.recipients.new_discussion.to', 'forum-updates@example.org')} />
+                <input className="FormControl" type="text" length="50" bidi={this.setting('PostNotification.recipients.new_discussion.to')} />
             </div>,
 
             <div className="Form-group">
                 <label>{app.translator.trans('tpokorra-post-notification.admin.settings.recipients.new_discussion.bcc')}</label>
-                <input required className="FormControl" type="text" length="100" bidi={this.setting('PostNotification.recipients.new_discussion.bcc', 'person1@example.org, person2@example.org')} />
+                <input className="FormControl" type="text" length="100" bidi={this.setting('PostNotification.recipients.new_discussion.bcc')} />
             </div>,
 
             <div className="Form-group">
                 <label>{app.translator.trans('tpokorra-post-notification.admin.settings.recipients.new_post.to')}</label>
-                <input required className="FormControl" type="text" length="50" bidi={this.setting('PostNotification.recipients.new_post.to', 'forum-updates@example.org')} />
+                <input className="FormControl" type="text" length="50" bidi={this.setting('PostNotification.recipients.new_post.to')} />
             </div>,
 
             <div className="Form-group">
                 <label>{app.translator.trans('tpokorra-post-notification.admin.settings.recipients.new_post.bcc')}</label>
-                <input required className="FormControl" type="text" length="100" bidi={this.setting('PostNotification.recipients.new_post.bcc', 'person1@example.org, person2@example.org')} />
+                <input className="FormControl" type="text" length="100" bidi={this.setting('PostNotification.recipients.new_post.bcc')} />
             </div>,
 
             <div className="Form-group">
                 <label>{app.translator.trans('tpokorra-post-notification.admin.settings.recipients.revised_post.to')}</label>
-                <input required className="FormControl" type="text" length="50" bidi={this.setting('PostNotification.recipients.revised_post.to', 'forum-updates@example.org')} />
+                <input className="FormControl" type="text" length="50" bidi={this.setting('PostNotification.recipients.revised_post.to')} />
             </div>,
 
             <div className="Form-group">
                 <label>{app.translator.trans('tpokorra-post-notification.admin.settings.recipients.revised_post.bcc')}</label>
-                <input required className="FormControl" type="text" length="100" bidi={this.setting('PostNotification.recipients.revised_post.bcc', 'person1@example.org, person2@example.org')} />
+                <input className="FormControl" type="text" length="100" bidi={this.setting('PostNotification.recipients.revised_post.bcc')} />
             </div>,
 
             <div className="Form-group">
