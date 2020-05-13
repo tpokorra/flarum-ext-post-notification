@@ -135,8 +135,8 @@ class PostNotification
                 // $recipients_to = 'me@example.com, you@example.com';
                 $recipients = explode(',', str_replace(' ', '', $recipients_to));
                 $message->to($recipients);
-                $recipients = explode(',', str_replace(' ', '', $recipients_bcc));
-                if (!empty($recipients)) {
+                if (!empty($recipients_bcc)) {
+                    $recipients = explode(',', str_replace(' ', '', $recipients_bcc));
                     $message->bcc($recipients);
                 }
                 $forum_name = $this->settings->get('forum_title');
