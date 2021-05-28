@@ -33,7 +33,8 @@ return [
         ->serializeToForum('PostNotification.revised_post', 'PostNotification.revised_post'),
 
     new Extend\Locales(__DIR__.'/resources/locale'),
-    function(Dispatcher $events, Factory $view) {
-        $events->subscribe(Listeners\PostNotification::class);
-    }
+
+    (new Extend\Event())
+        ->subscribe(Listeners\PostNotification::class),
+
 ];
