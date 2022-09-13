@@ -49,11 +49,10 @@ class PostNotification
         $events->listen(Posted::class, [$this, 'PostWasPosted']);
         $events->listen(Revised::class, [$this, 'PostWasRevised']);
         $events->listen(PostWasApproved::class, [$this, 'PostWasApproved']);
-        $events->listen(Saving::class, [$this, 'PostNeedsApproval']);
     }
 
     public function PostWasPosted(Posted $event) {
-        $this->SendNotification($event->post, true);
+        $this->SendNotification($event->post);
     }
 
     public function PostWasRevised(Revised $event) {
@@ -61,28 +60,27 @@ class PostNotification
     }
 
     public function PostWasApproved(PostWasApproved $event) {
-        $this->SendNotification($event->post, true);
-    }
-
-    public function PostNeedsApproval(Saving $event) {
-        if ($event->post->is_approved == false) {
-            $this->SendNotification($event->post, true, true);
+        // rejected posts are private and hidden
+        if (!$event->post->is_private && is_null($event->post->hidden_at)) {
+            $this->SendNotification($event->post);
         }
     }
 
-    private function SendNotification($post, bool $new_post, bool $needs_approval = false) {
+    private function SendNotification($post, bool $new_post = true) {
 
-        if ($post->is_private) {
-            # don't notify private posts here
-            return;
-        }
-
-        if (!empty($post->hidden_at && !$needs_approval)) {
-            # don't notify about hidden posts that have been rejected
-            return;
-        }
-
+        $needs_approval = (!$post->is_approved && $new_post);
         $new_discussion = ($post->number == 1 && $new_post);
+
+        if (!$needs_approval) {
+            if ($post->is_private) {
+                # don't notify private posts here
+                return;
+            }
+            if (!is_null($post->hidden_at)) {
+                # don't notify about hidden posts that have been rejected
+               return;
+            }
+        }
 
         if ($needs_approval) {
             $first_sentence = $this->settings->get('PostNotification.post_approval', 'A new post by %s needs to be approved:');
