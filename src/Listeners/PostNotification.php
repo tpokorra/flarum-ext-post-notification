@@ -77,6 +77,11 @@ class PostNotification
             return;
         }
 
+        if (!empty($post->hidden_at && !$needs_approval)) {
+            # don't notify about hidden posts that have been rejected
+            return;
+        }
+
         $new_discussion = ($post->number == 1 && $new_post);
 
         if ($needs_approval) {
