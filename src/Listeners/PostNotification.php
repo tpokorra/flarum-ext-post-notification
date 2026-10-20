@@ -24,9 +24,21 @@ class PostNotification
 {
     protected static $flarumConfig;
 
-    public function __construct(protected SettingsRepositoryInterface $settings, protected Mailer $mailer)
+    /**
+     * @var SettingsRepositoryInterface
+     */
+    protected $settings;
+
+    /**
+     * @var Mailer
+     */
+    protected $mailer;
+
+    public function __construct(SettingsRepositoryInterface $settings, Mailer $mailer)
     {
         static::$flarumConfig = app('flarum.config');
+        $this->settings = $settings;
+        $this->mailer = $mailer;
     }
 
     /**

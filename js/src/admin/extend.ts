@@ -1,5 +1,5 @@
 import Extend from 'flarum/common/extenders';
-import app from 'flarum/app';
+import app from 'flarum/admin/app';
 
 const translationPrefix = 'tpokorra-post-notification.admin.settings.';
 const settingsPrefix = 'PostNotification.';

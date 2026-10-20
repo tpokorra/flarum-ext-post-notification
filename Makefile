@@ -1,4 +1,4 @@
-ssh_url=tim00-timotheus@pokorra.de:testflarum
+ssh_url=tim05-flarum@tim05.hostsharing.net:flarum
 
 all: build upload
 
@@ -8,6 +8,6 @@ build:
 upload:
 	rsync -zvhr --exclude node_modules --exclude .git . ${ssh_url}/vendor/tpokorra/flarum-ext-post-notification
 	@echo
-	@echo "now clear the cache on the server: php7.2 flarum cache:clear"
+	@echo "now clear the cache on the server: php8.4 flarum cache:clear"
 
 
