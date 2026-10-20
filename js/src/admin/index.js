@@ -4,7 +4,7 @@ const translationPrefix = 'tpokorra-post-notification.admin.settings.';
 const settingsPrefix = 'PostNotification.';
 
 app.initializers.add('tpokorra-post-notification', () => {
-  app.extensionData
+  app.registry
     .for('tpokorra-post-notification')
 
     .registerSetting({
