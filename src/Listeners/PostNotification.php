@@ -22,22 +22,10 @@ use Illuminate\Support\Arr;
 
 class PostNotification
 {
-    /**
-     * @var SettingsRepositoryInterface
-     */
-    protected $settings;
-
-    protected $mailer;
-
     protected static $flarumConfig;
 
-    /**
-     * @param SettingsRepositoryInterface $settings
-     */
-    public function __construct(SettingsRepositoryInterface $settings, Mailer $mailer)
+    public function __construct(protected SettingsRepositoryInterface $settings, protected Mailer $mailer)
     {
-        $this->settings = $settings;
-        $this->mailer = $mailer;
         static::$flarumConfig = app('flarum.config');
     }
 
